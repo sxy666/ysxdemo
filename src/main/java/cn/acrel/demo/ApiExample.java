@@ -33,10 +33,10 @@ public class ApiExample {
     /**
      * http GET请求示例
      */
-    public static void httpGetExample() throws Exception {
+    public static String httpGetExample(String type) throws Exception {
         String secret = "dEq3bcgtLK";// 密钥，到控制台->应用管理打开应用可以找到此值
         String application = "KrqdPliajme";// appKey，到应用管理打开应用可以找到此值
-        String version = "20181031202139";// api版本，到文档中心->使能平台API文档打开要调用的api可以找到此值
+        String version = "20181031202055";// api版本，到文档中心->使能平台API文档打开要调用的api可以找到此值
         String MasterKey = "a67595e35af04ba696689afca5eb2e1b";// MasterKey，在产品中心打开对应的产品查看此值
 
         HttpResponse response = null;
@@ -48,7 +48,9 @@ public class ApiExample {
         // 下面示例以根据产品ID查询产品信息的API为例【具体信息请以使能平台的API文档为准】。
         // 构造请求的URL,具体参考文档中心->API文档中的请求地址和访问路径
         URIBuilder uriBuilder = new URIBuilder();
-        uriBuilder.setScheme("http");// 请求用的协议，http或者https
+        uriBuilder.setScheme("https");// 请求用的协议，http或者https
+        if (type.equals("device"))
+            uriBuilder.setHost("ag-api.ctwing.cn/aep_product_management");//请求地址
         uriBuilder.setHost("ag-api.ctwing.cn/aep_product_management");//请求地址
 
         uriBuilder.setPath("/product");//访问路径，可以在API文档中对应的API中找到此访问路径
@@ -91,13 +93,13 @@ public class ApiExample {
         httpGet.addHeader("signature", sign(param, timestamp, application, secret, null));
 
         System.out.println(httpGet.getURI());
-
+        String result = "";
         try {
             // 发送请求
             response = httpClient.execute(httpGet);
 
             // 从response获取响应结果
-            System.out.println(new String(EntityUtils.toByteArray(response.getEntity())));
+            result = new String(EntityUtils.toByteArray(response.getEntity()));
 
             httpClient.close();
         } catch (ClientProtocolException e) {
@@ -105,6 +107,7 @@ public class ApiExample {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     /**

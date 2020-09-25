@@ -8,12 +8,13 @@ import static cn.acrel.demo.ApiExample.httpGetExample;
 @RestController
 public class Controller {
 
-    @GetMapping("/Get")
-    public void get (){
+    @GetMapping(value = "/Get", produces = "application/json", consumes = "application/json")
+    public String get (String type){
         try {
-            httpGetExample();
+            return httpGetExample(type);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
