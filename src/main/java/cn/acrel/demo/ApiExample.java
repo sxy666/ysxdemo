@@ -112,16 +112,24 @@ public class ApiExample {
     /**
      * http POST请求示例
      */
-    public static String httpPostExample() throws Exception {
+    public static String getDeviceStatusHisInPage() throws Exception {
         String secret = "dEq3bcgtLK";// 密钥，到控制台->应用管理打开应用可以找到此值
         String application = "KrqdPliajme";// appKey，到应用管理打开应用可以找到此值
         String version = "20190928013337";// api版本，到文档中心->使能平台API文档打开要调用的api可以找到此值
-        String MasterKey = "a67595e35af04ba696689afca5eb2e1b";// MasterKey，在产品中心打开对应的产品查看此值
-
+        String MasterKey = "d2fe017511a5474a9bdf2724d304809c";// MasterKey，在产品中心打开对应的产品查看此值
+        String produceId="15000601";
+        String deviceId="6b27bdb569094a6aa1849310be648149";
+        String begin_timestamp="1601136000000";
+        String end_timestamp="1601222399000";
+        Integer page_size=5;
+        String page_timestamp=null;
+        if (page_timestamp==null)
+            page_timestamp=end_timestamp;
         // 下面以增加设备的API为例【具体信息请以使能平台的API文档为准】。
 
         //请求BODY,到文档中心->使能平台API文档打开要调用的api中，在“请求BODY”中查看
-        String bodyString = "{\"productId\":\"15001512\",\"deviceId\":\"6b54dfadefed4196927062f69d9744a6\",\"begin_timestamp\":\"1600963200000\",\"end_timestamp\":\"1601222399000\"\"page_size\":10,\"page_timestamp\":\"1601222399000\"}";
+        String bodyString = "{\"productId\":\""+produceId+"\",\"deviceId\":\""+deviceId+"\","+"\"begin_timestamp\":\""+begin_timestamp+"\",\"end_timestamp\":\""+end_timestamp+"\",\"page_size\":"+page_size+",\"page_timestamp\"" +
+                ":\""+page_timestamp+"\"}" ;
 
         CloseableHttpClient httpClient = null;
         HttpResponse response = null;
@@ -132,7 +140,7 @@ public class ApiExample {
         // 构造请求的URL，具体参考文档中心->使能平台API文档中的请求地址和访问路径
         URIBuilder uriBuilder = new URIBuilder();
         uriBuilder.setScheme("https");
-        uriBuilder.setHost("ag-api.ctwing.cn/aep_device_status/getDeviceStatusHisInPage"); //请求地址
+        uriBuilder.setHost("ag-api.ctwing.cn/aep_device_status"); //请求地址
         uriBuilder.setPath("/getDeviceStatusHisInPage"); //访问路径，可以在API文档中对应API中找到此访问路径
 
         // 在请求的URL中添加参数，具体参考文档中心->API文档中请求参数说明
@@ -186,6 +194,78 @@ public class ApiExample {
         return result;
     }
 
+    public static String queryDeviceStatusList(String produceId,String deviceId) throws Exception {
+        String secret = "dEq3bcgtLK";// 密钥，到控制台->应用管理打开应用可以找到此值
+        String application = "KrqdPliajme";// appKey，到应用管理打开应用可以找到此值
+        String version = "20181031202403";// api版本，到文档中心->使能平台API文档打开要调用的api可以找到此值
+        String MasterKey = "d2fe017511a5474a9bdf2724d304809c";// MasterKey，在产品中心打开对应的产品查看此值
+        // 下面以增加设备的API为例【具体信息请以使能平台的API文档为准】。
+
+        //请求BODY,到文档中心->使能平台API文档打开要调用的api中，在“请求BODY”中查看
+        String bodyString = "{\"productId\":\""+produceId+"\",\"deviceId\":\""+deviceId+"\"}" ;
+
+        CloseableHttpClient httpClient = null;
+        HttpResponse response = null;
+        httpClient = HttpClientBuilder.create().build();
+
+        long offset = getTimeOffset();// 获取时间偏移量，方法见前面
+
+        // 构造请求的URL，具体参考文档中心->使能平台API文档中的请求地址和访问路径
+        URIBuilder uriBuilder = new URIBuilder();
+        uriBuilder.setScheme("https");
+        uriBuilder.setHost("ag-api.ctwing.cn/aep_device_status"); //请求地址
+        uriBuilder.setPath("/deviceStatusList"); //访问路径，可以在API文档中对应API中找到此访问路径
+
+        // 在请求的URL中添加参数，具体参考文档中心->API文档中请求参数说明
+        // (如果有MasterKey，将MasterKey加到head中，不加在此处)
+        //uriBuilder.addParameter("productId", "9392");//如果没有其他参数，此行不要
+
+        HttpPost httpPost = new HttpPost(uriBuilder.build());//构造post请求
+
+        long timestamp = System.currentTimeMillis() + offset;// 获取时间戳
+        Date date = new Date(timestamp);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String dataString = dateFormat.format(date);// 生成格式化的日期字符串
+
+        // head中添加公共参数
+        // httpPost.addHeader("MasterKey", MasterKey);// MasterKey加在此处head中
+        httpPost.addHeader("application", application);
+        httpPost.addHeader("timestamp", "" + timestamp);
+        httpPost.addHeader("version", version);
+        httpPost.addHeader("Content-Type", "application/json; charset=UTF-8");
+        httpPost.addHeader("Date", dataString);
+
+        // 下列注释的head暂时未用到
+        // httpPost.addHeader("sdk", "GIT: a4fb7fca");
+        // httpPost.addHeader("Accept", "gzip,deflate");
+        // httpPost.addHeader("User-Agent", "Telecom API Gateway Java SDK");
+
+        // 构造签名需要的参数,如果参数中有MasterKey，则添加来参与签名计算,
+        // 其他参数根据实际API从URL中获取,如有其他参数,写法参考get示例
+        Map<String, String> param = new HashMap<String, String>();
+        // param.put("MasterKey", MasterKey);
+
+        // 添加签名
+        httpPost.addHeader("signature", sign(param, timestamp, application, secret, bodyString.getBytes()));
+
+        //请求添加body部分
+        httpPost.setEntity(new StringEntity(bodyString));
+        String result = "";
+        try {
+            // 发送请求
+            response = httpClient.execute(httpPost);
+
+            // 从response获取响应结果
+            result=new String(EntityUtils.toByteArray(response.getEntity()));
+            httpClient.close();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     /**
      *

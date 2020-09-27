@@ -4,8 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static cn.acrel.demo.ApiExample.httpGetExample;
-import static cn.acrel.demo.ApiExample.httpPostExample;
+import static cn.acrel.demo.ApiExample.*;
 
 @RestController
 public class Controller {
@@ -19,10 +18,13 @@ public class Controller {
         }
         return null;
     }
+
     @PostMapping(value = "/Post", produces = "application/json", consumes = "application/json")
-    public String post(){
+    public String post(String produceId,String deviceId){
+        produceId="15000601";
+        deviceId="6b27bdb569094a6aa1849310be648149";
         try {
-            return httpPostExample();
+            return queryDeviceStatusList(produceId, deviceId);
         } catch (Exception e) {
             e.printStackTrace();
         }

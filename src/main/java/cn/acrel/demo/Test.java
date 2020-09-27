@@ -50,9 +50,8 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        System.out.println( hexStringToBytes("01 FC 3B 00 06 00 D2 05  CF 4A 54 00 21 03 08 67 88 40 40 05 43 70 04 60  11 31 19 59 86 62 00 00 0F FF 75 04 01 00 05 00  00 01 00 24 B0 BE 61 2A FF 01 FC 3B 00 06 00 D2 " +
-                " 05 CF 4A 54 00 21 03 08 67 88 40 40 05 43 70 04  60 11 31 19 59 86 62 00 00 0F FF 75 04 01 00 05  00 00 01 00 24 B0 BE"));
-        hexToByte("01 FC 3B 00 06 00 D2 05  CF 4A 54 00 21 03 08 67 88 40 40 05 43 70 04 60  11 31 19 59 86 62 00 00 0F FF 75 04 01 00 05 00  00 01 00 24 B0 BE 61 2A FF 01 FC 3B 00 06 00 D2 " +
-                " 05 CF 4A 54 00 21 03 08 67 88 40 40 05 43 70 04  60 11 31 19 59 86 62 00 00 0F FF 75 04 01 00 05  00 00 01 00 24 B0 BE");
+        GetState getState=new GetState();
+      String result= getState.get("15000601","6b27bdb569094a6aa1849310be648149");
+        System.out.println(result);
     }
 }
