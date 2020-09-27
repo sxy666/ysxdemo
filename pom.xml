@@ -45,6 +45,7 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.12</version>
         </dependency>
+        <dependency> <groupId>com.alibaba</groupId> <artifactId>fastjson</artifactId> <version>1.2.24</version> </dependency>
     </dependencies>
 
     <build>
