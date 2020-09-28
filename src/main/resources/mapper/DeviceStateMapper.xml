@@ -8,14 +8,7 @@
     </resultMap>
 
     <insert id="update" parameterType="cn.acrel.demo.entity.DeviceStateInfo">
-        if exists (select 1 from device_state where produceID=#{produceID} and deviceID=#{deviceID})
-        begin
-        update device_state set state=#{state}  where produceID=#{produceID} and deviceID=#{deviceID}
-        end
-        else
-        begin
-        insert device_state (deviceID,state,produceID) values (#{deviceID},#{state},#{produceID})
-        end
+        replace into device_state(deviceID,state,produceID) values (#{deviceID},#{state},#{produceID})
     </insert>
     <select id="select" resultMap="DeviceStateInfo">
         select * from device_state where produceID=#{produceID} and deviceID=#{deviceID}

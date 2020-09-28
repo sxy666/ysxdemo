@@ -8,11 +8,6 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 public class CallBackTest {
-
-@Resource
- DeviceStateMapper deviceStateMapper;
-
-
     public DeviceStateInfo update(DeviceStateInfo deviceStateInfo) {
         Caller caller = new Caller();
         //实例化具体回调函数，实现回调方法
