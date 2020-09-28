@@ -29,7 +29,7 @@ public class QueryStateServiceImpl implements QueryStateService {
             int begin = result.indexOf("dataVal1");
             result = result.substring(begin + 13, begin + 17);
             String re = Test.hexStr2BinStr(result);
-            re = re.substring(11, 15);
+            re = re.substring(12);
             if (re.equals("0000")) {
                 map.put(true, "没有报警");
                 deviceStateInfo.setState(true);
