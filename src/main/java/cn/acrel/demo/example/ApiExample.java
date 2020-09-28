@@ -1,4 +1,4 @@
-package cn.acrel.demo;
+package cn.acrel.demo.example;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

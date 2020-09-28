@@ -1,8 +1,7 @@
 package cn.acrel.demo;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
+import cn.acrel.demo.callback.Caller;
+import cn.acrel.demo.entity.DeviceStateInfo;
 
 public class Test {
     public static byte[] hexStringToBytes(String hexString) {
@@ -106,6 +105,8 @@ public class Test {
     }
 
     public static void main(String[] args) {
-
+        DeviceStateInfo deviceStateInfo=new DeviceStateInfo();
+        Caller updateState=new Caller();
+        ;
     }
 }

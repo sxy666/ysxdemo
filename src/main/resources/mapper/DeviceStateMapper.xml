@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.acrel.demo.mapper.DeviceStateMapper">
+    <resultMap id="DeviceStateInfo" type="cn.acrel.demo.entity.DeviceStateInfo">
+        <result column="deviceID" property="deviceID" jdbcType="VARCHAR"/>
+        <result column="produceID" property="produceID" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="BIT"/>
+    </resultMap>
+
+    <insert id="update" parameterType="cn.acrel.demo.entity.DeviceStateInfo">
+        if exists (select 1 from device_state where produceID=#{produceID} and deviceID=#{deviceID})
+        begin
+        update device_state set state=#{state}  where produceID=#{produceID} and deviceID=#{deviceID}
+        end
+        else
+        begin
+        insert device_state (deviceID,state,produceID) values (#{deviceID},#{state},#{produceID})
+        end
+    </insert>
+    <select id="select" resultMap="DeviceStateInfo">
+        select * from device_state where produceID=#{produceID} and deviceID=#{deviceID}
+    </select>
+</mapper>
