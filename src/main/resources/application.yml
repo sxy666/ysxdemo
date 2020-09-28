@@ -2,30 +2,25 @@ server:
   port: 8090
   servlet:
     context-path: /
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.acrel.demo.entity.*
+  configuration.map-underscore-to-camel-case: true
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/java225?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      username: root
-      password: 123456
-      url: jdbc:mysql://localhost:3306/java225?useUnicode=true&useSSL=false&characterEncoding=utf8
-      min-idle: 1
+      initial-size: 5
+      min-idle: 5
       max-active: 10
-      initial-size: 1
       max-wait: 60000
-      validation-query: select 1
-s
-
-      #logging:
-      #  config: classpath:logback-spring.xml
-      mybatis-plus:
-        configuration:
-          map-underscore-to-camel-case: true
-          cache-enabled: false
-          log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-      #mybatis
-      mybatis:
-        mapper-locations: classpath:mapper/*.xml
-        type-aliases-package: com.acrel.demo.entity.*
-        configuration.map-underscore-to-camel-case: true
+      time-between-eviction-runs-millis: 300000
+      filters: stat,wall
+      stat-view-servlet:
+        login-username: root
+        login-password: 123654
