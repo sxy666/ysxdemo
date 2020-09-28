@@ -35,7 +35,7 @@ public class QueryStateServiceImpl implements QueryStateService {
                 deviceStateInfo.setState(true);
             }
             if (re.equals("0001")) {
-                map.put(false, "水浸报警");
+                map.put(false, "报警");
                 deviceStateInfo.setState(false);
             }
             if (re.equals("0100")) {
