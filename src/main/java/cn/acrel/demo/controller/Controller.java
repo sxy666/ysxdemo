@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 import static cn.acrel.demo.example.ApiExample.*;
@@ -29,5 +30,15 @@ public class Controller {
     @PostMapping(value = "/Post", produces = "application/json", consumes = "application/json")
     public Map<Boolean, String> post(DeviceStateInfo deviceStateInfo) {
         return stateService.getState(deviceStateInfo);
+    }
+
+    @GetMapping("/getDeviceState")
+    public List<DeviceStateInfo> getState(String produceID, String deviceID) {
+        return stateService.getDevice(produceID, deviceID);
+    }
+
+    @PostMapping("/update")
+    public Boolean update(DeviceStateInfo deviceStateInfo) {
+        return stateService.update(deviceStateInfo);
     }
 }
