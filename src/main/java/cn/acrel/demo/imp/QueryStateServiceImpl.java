@@ -21,8 +21,8 @@ public class QueryStateServiceImpl implements QueryStateService {
 
     @Override
     public Map<Boolean, String> getState(DeviceStateInfo deviceStateInfo) {
-        deviceStateInfo.setProduceID("15000601");
-        deviceStateInfo.setDeviceID("6b27bdb569094a6aa1849310be648149");
+       // deviceStateInfo.setProduceID("15000601");
+        //deviceStateInfo.setDeviceID("6b27bdb569094a6aa1849310be648149");
         Map<Boolean, String> map = new HashMap<>();
         try {
             String result = queryDeviceStatusList(deviceStateInfo.getProduceID(), deviceStateInfo.getDeviceID());
