@@ -31,12 +31,12 @@ public class Controller {
     }
 
     @GetMapping("/getDeviceState")
-    public List<DeviceStateInfo> getState(String produceID, String deviceID) {
+    public List<DeviceStateInfo> getState(@RequestParam String produceID,@RequestParam String deviceID) {
         return stateService.getDevice(produceID, deviceID);
     }
 
     @PostMapping("/update")
-    public Boolean update(DeviceStateInfo deviceStateInfo) {
+    public Boolean update(@RequestBody DeviceStateInfo deviceStateInfo) {
         return stateService.update(deviceStateInfo);
     }
 }
