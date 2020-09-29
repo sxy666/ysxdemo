@@ -1,5 +1,6 @@
 package cn.acrel.demo.controller;
 
+import cn.acrel.demo.imp.QueryStateServiceImpl;
 import cn.acrel.demo.service.QueryStateService;
 import cn.acrel.demo.entity.DeviceStateInfo;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.Map;
 import static cn.acrel.demo.example.ApiExample.*;
 
 @RestController
-public class Controller {
+public class TController {
     @Resource
     QueryStateService stateService;
 

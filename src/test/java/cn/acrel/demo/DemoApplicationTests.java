@@ -1,6 +1,6 @@
 package cn.acrel.demo;
 
-import cn.acrel.demo.callback.CallBackTest;
+
 import cn.acrel.demo.entity.DeviceStateInfo;
 import cn.acrel.demo.service.QueryStateService;
 import org.junit.jupiter.api.Test;
@@ -19,9 +19,7 @@ QueryStateService stateService;
 //       deviceStateInfo.setProduceID("1");
 //       deviceStateInfo.setDeviceID("1");
 //       updateState.updateSate(deviceStateInfo);
-        DeviceStateInfo deviceStateInfo=new DeviceStateInfo();
-        CallBackTest callBackTest=new CallBackTest();
-        callBackTest.update(deviceStateInfo);
+
     }
 
 }

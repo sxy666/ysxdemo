@@ -1,6 +1,5 @@
 package cn.acrel.demo.imp;
 
-import cn.acrel.demo.callback.CallBackTest;
 import cn.acrel.demo.Test;
 import cn.acrel.demo.entity.DeviceStateInfo;
 import cn.acrel.demo.mapper.DeviceStateMapper;
@@ -17,9 +16,11 @@ import java.util.Map;
 import static cn.acrel.demo.example.ApiExample.queryDeviceStatusList;
 
 @Service
-public class QueryStateServiceImpl implements QueryStateService {
+public class QueryStateServiceImpl implements QueryStateService{
     @Resource
     DeviceStateMapper mapper;
+
+
 
     @Override
     public Map<Boolean, String> getState(DeviceStateInfo deviceStateInfo) {
@@ -35,6 +36,7 @@ public class QueryStateServiceImpl implements QueryStateService {
             if (re.equals("0000")) {
                 map.put(true, "没有报警");
                 deviceStateInfo.setState(true);
+      //          return map;
             }
             if (re.equals("0001")) {
                 map.put(false, "报警");
@@ -52,6 +54,7 @@ public class QueryStateServiceImpl implements QueryStateService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return map;
     }
 
@@ -61,10 +64,9 @@ public class QueryStateServiceImpl implements QueryStateService {
     }
 
     @Override
-    public Boolean update(@RequestBody DeviceStateInfo deviceStateInfo) {
-        CallBackTest callBackTest = new CallBackTest();
-        deviceStateInfo = callBackTest.update(deviceStateInfo);
-        Boolean flag=mapper.update(deviceStateInfo);
-        return flag;
+    public Boolean update(DeviceStateInfo deviceStateInfo) {
+        return null;
     }
+
+
 }
