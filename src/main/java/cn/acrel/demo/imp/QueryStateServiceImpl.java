@@ -65,7 +65,7 @@ public class QueryStateServiceImpl implements QueryStateService{
 
     @Override
     public Boolean update(DeviceStateInfo deviceStateInfo) {
-        return null;
+        return mapper.update(deviceStateInfo);
     }
 
 

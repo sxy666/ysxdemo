@@ -4,25 +4,15 @@ import com.ctiot.aep.mqmsgpush.sdk.IMsgConsumer;
 import com.ctiot.aep.mqmsgpush.sdk.IMsgListener;
 import com.ctiot.aep.mqmsgpush.sdk.MqMsgConsumer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
-public class MessageConfig implements IMsgListener {
+public class MsgConfig implements IMsgListener {
     String server = "msgpush.ctwing.cn:16651"; //消息服务地址
     String tenantId = "xxx";//租户ID
     String token = "xxx";//身份认证token串
     String certFilePath = ""; //直接填空字符串，CA证书，JDK已经内置相关根证书，无需指定
 
-    @Override
-    public void onMessage(String s) {
-        //接收消息
-        System.out.println(s);
-        //消息处理...
-        //为了提高效率，建议对消息进行异步处理（使用其它线程、发送到Kafka等）
-    }
-
-    @Bean
-    public IMsgConsumer consume0() {
+    public IMsgConsumer starter() {
         IMsgConsumer consumer = new MqMsgConsumer();
         try {
             //初始化
@@ -50,7 +40,12 @@ public class MessageConfig implements IMsgListener {
         System.out.println("exit");
         return consumer;
     }
+
+    @Override
+    public void onMessage(String s) {
+        //接收消息
+        System.out.println(s);
+        //消息处理...
+        //为了提高效率，建议对消息进行异步处理（使用其它线程、发送到Kafka等）
+    }
 }
-
-
-
