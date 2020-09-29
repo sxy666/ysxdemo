@@ -5,3 +5,4 @@ import cn.acrel.demo.entity.DeviceStateInfo;
 public interface CallBack {
      DeviceStateInfo  updateSate(DeviceStateInfo deviceStateInfo);
 }
+
