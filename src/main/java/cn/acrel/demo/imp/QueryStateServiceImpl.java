@@ -6,6 +6,8 @@ import cn.acrel.demo.entity.DeviceStateInfo;
 import cn.acrel.demo.mapper.DeviceStateMapper;
 import cn.acrel.demo.service.QueryStateService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -21,8 +23,8 @@ public class QueryStateServiceImpl implements QueryStateService {
 
     @Override
     public Map<Boolean, String> getState(DeviceStateInfo deviceStateInfo) {
-       // deviceStateInfo.setProduceID("15000601");
-        //deviceStateInfo.setDeviceID("6b27bdb569094a6aa1849310be648149");
+      //  deviceStateInfo.setProduceID("15000601");
+       // deviceStateInfo.setDeviceID("6b27bdb569094a6aa1849310be648149");
         Map<Boolean, String> map = new HashMap<>();
         try {
             String result = queryDeviceStatusList(deviceStateInfo.getProduceID(), deviceStateInfo.getDeviceID());
@@ -54,12 +56,12 @@ public class QueryStateServiceImpl implements QueryStateService {
     }
 
     @Override
-    public List<DeviceStateInfo> getDevice(String produceID, String deviceID) {
+    public List<DeviceStateInfo> getDevice(@RequestParam String produceID, @RequestParam String deviceID) {
         return mapper.select(produceID, deviceID);
     }
 
     @Override
-    public Boolean update(DeviceStateInfo deviceStateInfo) {
+    public Boolean update(@RequestBody DeviceStateInfo deviceStateInfo) {
         CallBackTest callBackTest = new CallBackTest();
         deviceStateInfo = callBackTest.update(deviceStateInfo);
         Boolean flag=mapper.update(deviceStateInfo);

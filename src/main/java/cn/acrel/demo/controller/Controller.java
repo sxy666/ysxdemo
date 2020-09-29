@@ -2,9 +2,7 @@ package cn.acrel.demo.controller;
 
 import cn.acrel.demo.service.QueryStateService;
 import cn.acrel.demo.entity.DeviceStateInfo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -28,7 +26,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/Post", produces = "application/json", consumes = "application/json")
-    public Map<Boolean, String> post(DeviceStateInfo deviceStateInfo) {
+    public Map<Boolean, String> post(@RequestBody DeviceStateInfo deviceStateInfo) {
         return stateService.getState(deviceStateInfo);
     }
 
