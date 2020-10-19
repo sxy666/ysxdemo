@@ -3,56 +3,24 @@ package cn.acrel.demo;
 import cn.acrel.demo.entity.DeviceStateInfo;
 
 public class Test {
-    public static byte[] hexStringToBytes(String hexString) {
-        if (hexString == null || hexString.equals("")) {
-            return null;
+    /**
+     * 将字节数组转换成十六进制字符串进行输出
+     * @param bArr
+     * @return
+     */
+    public static final String bytesToHexString(byte[] bArr) {
+        StringBuffer sb = new StringBuffer(bArr.length);
+        String sTmp;
+
+        for (int i = 0; i < bArr.length; i++) {
+            sTmp = Integer.toHexString(0xFF & bArr[i]);
+            if (sTmp.length() < 2)
+                sb.append(0);
+            sb.append(sTmp.toUpperCase());
         }
-        hexString = hexString.toUpperCase().replace(" ", "");
-        int length = hexString.length() / 2;
-        char[] hexChars = hexString.toCharArray();
-        byte[] d = new byte[length];
-        for (int i = 0; i < length; i++) {
-            int pos = i * 2;
-            d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
-        }
-        return d;
+
+        return sb.toString();
     }
-
-    private static byte charToByte(char c) {
-        return (byte) "0123456789ABCDEF".indexOf(c);
-    }
-
-    public static byte[] hexToByte(String hex) {
-        hex = hex.replace(" ", "");
-
-/**
-
- 　　*字节数组长度为16进制字符串长度的一半
-
- 　　*/
-
-        int byteLength = hex.length() / 2;
-
-        byte[] bytes = new byte[byteLength];
-
-        int m = 0;
-
-        int n = 0;
-
-        for (int i = 0; i < byteLength; i++) {
-
-            m = i * 2 + 1;
-
-            n = m + 1;
-
-            int intHex = Integer.decode("0x" + hex.substring(i * 2, m) + hex.substring(m, n));
-
-            bytes[i] = Byte.valueOf((byte) intHex);
-        }
-        return bytes;
-
-    }
-
     private static String hexStr = "0123456789ABCDEF";
     private static String[] binaryArray =
             {"0000", "0001", "0010", "0011",
@@ -111,5 +79,14 @@ public class Test {
 //        Caller updateState=new Caller();
 //        ;
 //    }
+
+    public static void main(String[] args) {
+        String result = "0020";
+        byte[] i = hexStr2BinArr(result);
+      String test=bytesToHexString(i);
+        String t=hexStr2BinStr(result);
+
+        System.out.println(test);
+    }
 }
 //}
