@@ -25,6 +25,12 @@ public class TController {
     @Resource
     HttpServletRequest request;
 
+    @GetMapping("/ttt")
+    public String a(){
+        return "sadawdwa";
+    }
+
+
     @GetMapping(value = "/Get", produces = "application/json", consumes = "application/json")
     public String get() {
         try {

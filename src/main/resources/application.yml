@@ -2,15 +2,21 @@ server:
   port: 8090
   servlet:
     context-path: /
+
+
+
 #mybatis
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.acrel.demo.entity.*
   configuration.map-underscore-to-camel-case: true
 spring:
+
+
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3306/java225?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT
+    url: jdbc:mysql://192.168.112.202:3306/java225?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -24,13 +30,13 @@ spring:
       stat-view-servlet:
         login-username: root
         login-password: 123654
-  mqtt:
-    host: tcp://localhost:1883
-    topic: test
-    username: root
-    password: 123456
-    timeout: 10000
-    keepalive: 20
-    clientinid: subClient_${random.value}
-    clientoutid: ${random.value}
-    qoslevel: 1
+mqtt:
+  host: tcp://192.168.112.202:1883
+  topic: test
+  username: root
+  password: 123456
+  timeout: 10000
+  keepalive: 20
+  clientinid: subClient_${random.value}
+  clientoutid: ${random.value}
+  qoslevel: 1

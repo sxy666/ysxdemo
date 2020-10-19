@@ -2,7 +2,6 @@ package cn.acrel.demo.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +12,7 @@ import org.springframework.integration.core.MessageProducer;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
+import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -22,7 +22,7 @@ import org.springframework.messaging.MessagingException;
 @Slf4j
 @Configuration
 @IntegrationComponentScan
-public class MqttReceiveConfig {
+public class MQTTConfig {
     @Value("${mqtt.username}")
     private String username;
 
@@ -41,8 +41,6 @@ public class MqttReceiveConfig {
     @Value("${mqtt.timeout}")
     private int completionTimeout;   //连接超时
 
-    @Autowired
-    private MqttGateway mqttGateway;
 
 
     @Bean
@@ -65,6 +63,23 @@ public class MqttReceiveConfig {
         factory.setConnectionOptions(getMqttConnectOptions());
         return factory;
     }
+
+    @Bean
+    @ServiceActivator(inputChannel = "mqttOutboundChannel")
+    public MessageHandler mqttOutbound() {
+        MqttPahoMessageHandler messageHandler =  new MqttPahoMessageHandler(clientId, mqttClientFactory());
+        messageHandler.setAsync(true);
+        messageHandler.setDefaultTopic(defaultTopic);
+        return messageHandler;
+    }
+    @Bean
+    public MessageChannel mqttOutboundChannel() {
+        return new DirectChannel();
+    }
+
+
+
+
 
     //接收通道
     @Bean
