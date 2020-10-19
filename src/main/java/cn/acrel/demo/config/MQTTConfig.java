@@ -81,7 +81,7 @@ public class MQTTConfig {
 
 
 
-    //接收通道
+    //接收通道...
     @Bean
     public MessageChannel mqttInputChannel() {
         return new DirectChannel();
